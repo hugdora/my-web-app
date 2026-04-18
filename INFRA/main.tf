@@ -120,45 +120,53 @@ resource "aws_instance" "web" {
 
   user_data = <<-EOF2
     #!/bin/bash
-    apt-get update -y
-    apt-get upgrade -y
+    set -e
+    exec > /var/log/user-data.log 2>&1
 
-    curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-    apt-get install -y nodejs
-    apt-get install -y nginx git
+    sudo apt-get update -y
+    sudo apt-get upgrade -y
+
+    sudo apt-get install -y curl git nginx
+    sudo curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+    sudo apt-get install -y nodejs
+
+    sudo npm install -g pm2
+
     systemctl enable nginx
     systemctl start nginx
 
-    npm install -g pm2
-
     cd /home/ubuntu
-    git clone https://github.com/hugdora/my-web-app.git
-    cd my-web-app/app
-    npm install
+    rm -rf my-web-app
 
-    pm2 start index.js --name "my-web-app"
-    pm2 save
-    pm2 startup systemd -u ubuntu --hp /home/ubuntu
+    sudo -u ubuntu git clone https://github.com/hugdora/my-web-app.git /home/ubuntu/my-web-app
+    cd /home/ubuntu/my-web-app/APP
+
+    sudo -u ubuntu npm install
+    sudo -u ubuntu pm2 start index.js --name my-web-app
+    sudo -u ubuntu pm2 save
+
+    env PATH=$PATH:/usr/bin pm2 startup systemd -u ubuntu --hp /home/ubuntu
 
     cat > /etc/nginx/sites-available/my-web-app <<'NGINX'
     server {
-      listen 80;
-      server_name _;
+        listen 80;
+        server_name _;
 
-      location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-      }
+        location / {
+            proxy_pass http://127.0.0.1:3000;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+        }
     }
-NGINX
+    NGINX
 
-    ln -s /etc/nginx/sites-available/my-web-app /etc/nginx/sites-enabled/
+    ln -sf /etc/nginx/sites-available/my-web-app /etc/nginx/sites-enabled/my-web-app
     rm -f /etc/nginx/sites-enabled/default
-    nginx -t && systemctl reload nginx
+    nginx -t
+    systemctl reload nginx
   EOF2
 
   tags = {
