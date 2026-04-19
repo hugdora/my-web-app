@@ -3,7 +3,7 @@ name: Deploy to Cloud VM
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -16,12 +16,12 @@ jobs:
 
       - name: Install dependencies for test
         run: |
-          cd app
+          cd  APP
           npm install
 
       - name: Basic application check
         run: |
-          cd app
+          cd APP
           node index.js &
           sleep 3
           curl -f http://localhost:3000
@@ -36,7 +36,7 @@ jobs:
           script: |
             cd ~/my-web-app
             git pull origin main
-            cd app
+            cd APP
             npm install
             pm2 restart my-web-app
             pm2 save
