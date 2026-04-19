@@ -35,7 +35,7 @@ jobs:
           key: ${{ secrets.VM_SSH_KEY }}
           script: |
             cd ~/my-web-app
-            git pull origin main
+            git pull origin master
             cd APP
             npm install
             pm2 restart my-web-app
