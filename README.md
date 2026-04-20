@@ -19,6 +19,8 @@ AWS EC2 — Ubuntu t2.micro (eu-west-2)
   └── PM2 (keeps server.js running)
 ```
 
+
+
 ## Project structure
 
 ```
@@ -37,6 +39,9 @@ portfoliod/
     └── workflows/
         └── deploy.yml      # CI/CD pipeline
 ```
+![cicd1](image-1.png)
+![cicd2](image-2.png)
+
 
 ## What each service does
 
@@ -48,6 +53,7 @@ portfoliod/
 | **server.js** | Express app that serves portfolio files |
 | **PM2** | Keeps server.js running and restarts it if it crashes |
 | **GitHub Actions** | Automatically deploys on every push to master |
+![infra](image.png)
 
 ## Prerequisites
 
