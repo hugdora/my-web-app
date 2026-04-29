@@ -3,7 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  res.send('<h1> DEPLOYEMENT AUTOMATION WITH GIT HUB ACTION BY THE BIG TEAM OF ENGINEERS GURU!</h1>');
+  res.send('<h1> DEPLOYEMENT AUTOMATION WITH GIT HUB ACTION AND TERRAFORM BY THE BIG TEAM OF ENGINEERS GURU!</h1>');
 });
 
 app.use((err, req, res, next) => {
