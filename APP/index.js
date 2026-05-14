@@ -3,7 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  res.send('<h1> HERE IS WHAT WE LEARN IN HAGITAL TEAM OF ENGINEERS GURU!</h1>');
+  res.send('<h1> HERE IS WHAT WE LEARN IN HAGITAL TEAM OF PROFESSIONAL ENGINEER!</h1>');
 });
 
 app.use((err, req, res, next) => {
