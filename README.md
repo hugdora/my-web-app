@@ -147,7 +147,7 @@ No manual deployment steps are needed after initial setup.
 pm2 status
 
 # View app logs
-pm2 logs portfoliod
+pm2 logs my-web-app
 
 # Test Nginx config
 sudo nginx -t
