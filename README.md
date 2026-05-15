@@ -69,7 +69,7 @@ my-web-app/
 
 ```bash
 git clone https://github.com/hugdora/my-web-app.git
-cd portfoliod
+cd my-web-app
 ```
 
 ### 2. Generate an SSH key pair
