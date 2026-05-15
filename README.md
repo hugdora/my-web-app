@@ -92,8 +92,8 @@ Create `terraform/terraform.tfvars` (this file is gitignored):
 ```hcl
 aws_region          = "eu-west-2"
 instance_type       = "t2.micro"
-app_name            = "portfoliod"
-ssh_public_key_path = "~/.ssh/portfoliod-key.pub"
+app_name            = "my-web-app"
+ssh_public_key_path = "~/.ssh/my-web-app-key.pub"
 ```
 
 ### 5. Provision the infrastructure
