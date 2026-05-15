@@ -24,20 +24,20 @@ AWS EC2 — Ubuntu t2.micro (eu-west-2)
 ## Project structure
 
 ```
-portfoliod/
-├── index.html              # Main portfolio page
-├── post.html               # Secondary page
-├── assets/                 # CSS, images, fonts
-├── server.js               # Express server — serves static files
-├── package.json
+my-web-app/
+├── app/
+│   ├── index.js
+│   ├── package.json
+│   └── .gitignore
 ├── terraform/
-│   ├── main.tf             # VPC, subnet, security group, EC2
-│   ├── variables.tf        # Input variables
-│   ├── outputs.tf          # Public IP, DNS, SSH command
-│   └── terraform.tfvars    # Your values (gitignored)
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   └── terraform.tfvars
 └── .github/
     └── workflows/
-        └── deploy.yml      # CI/CD pipeline
+        └── deploy.yml
+
 ```
 ![cicd1](image-1.png)
 ![cicd2](image-2.png)
@@ -68,14 +68,14 @@ portfoliod/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/hugdora/portfoliod.git
+git clone https://github.com/hugdora/my-web-app.git
 cd portfoliod
 ```
 
 ### 2. Generate an SSH key pair
 
 ```bash
-ssh-keygen -t rsa -b 4096 -f ~/.ssh/portfoliod-key
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/my-web-app-key
 ```
 
 ### 3. Configure AWS credentials
@@ -115,7 +115,7 @@ Go to your GitHub repo → **Settings → Secrets and variables → Actions** an
 |---|---|
 | `VM_HOST` | Public IP from `terraform output public_ip` |
 | `VM_USER` | `ubuntu` |
-| `VM_SSH_KEY` | Contents of `~/.ssh/portfoliod-key` (the private key) |
+| `VM_SSH_KEY` | Contents of `~/.ssh/my-web-app-key` (the private key) |
 
 ### 7. Verify the deployment
 
